@@ -38,6 +38,15 @@
   }
 }
 
+/* --- Utility Classes --- */
+.container { /* Optional: Use for centering content sections */
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 /* --- Base Element Styles --- */
 
 /* Global Reset & Font */
@@ -97,14 +106,50 @@ a:hover {
 img {
   max-width: 100%;
   height: auto;
-  display: block; /* Remove extra space below image */
+  /* display: block; Remove this */
   border-radius: 8px; /* Slightly rounded corners */
+  vertical-align: middle; /* Better default alignment */
 }
 
 /* Lists (Basic Reset - Nav has specific styles) */
 ul, ol {
   /* Add padding-left if needed for standard lists, e.g., padding-left: 20px; */
   /* list-style-position: inside; */ /* Optional: if you want bullets inside padding */
+}
+
+
+/* --- Buttons --- */
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px; /* Match image radius */
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+}
+
+.primary-button {
+  background-color: #F4CE14; /* Yellow */
+  color: #333333; /* Dark Gray */
+}
+
+.primary-button:hover {
+  background-color: #e0bb10;
+  color: #333333 !important; /* Ensure text color overrides link color */
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  background-color: #495E57; /* Green */
+  color: #EDEFEE; /* Light Gray */
+}
+
+.secondary-button:hover {
+  background-color: #3d4e45;
+  color: #EDEFEE;
+  transform: translateY(-1px);
 }
 
 
@@ -118,16 +163,36 @@ ul, ol {
   background-color: #f4f4f4; /* Light background for the whole page */
 }
 
+/* Header adjustments - Logo left, Nav right within container */
 .app-header {
-  background-color: #495E57; /* Little Lemon Green */
-  color: #EDEFEE; /* Light Gray */
-  padding: 1rem;
-  text-align: center;
+  background-color: #ffffff; /* White background */
+  color: #333333;
+  padding: 0.5rem 1rem; /* Padding on sides */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 100;
+  /* Use flexbox to position items */
+  display: flex;
+  justify-content: space-between; /* Push logo and nav apart */
+  align-items: center;
+  /* Optional: Constrain width and center header content */
+  /* max-width: 1200px; */
+  /* margin: 0 auto; */
 }
 
+/* Re-add rule for logo size */
+.app-header img {
+  height: 30px; /* Further reduced height */
+  width: auto;
+  vertical-align: middle; /* Helps alignment */
+  display: inline-block; /* Ensure it behaves well as flex item */
+}
+
+/* Nav adjustments - aligned to the right */
 .app-nav {
-  background-color: #F4CE14; /* Little Lemon Yellow */
-  padding: 0.5rem 1rem;
+  padding: 0;
+  /* display: block; */ /* Remove this - let it be default inline-block behavior within flex */
 }
 
 .app-nav ul {
@@ -135,45 +200,348 @@ ul, ol {
   padding: 0;
   margin: 0;
   display: flex;
-  justify-content: center; /* Center nav items */
-  gap: 1.5rem; /* Space between nav items */
+  gap: 2rem; /* Increase gap slightly */
 }
 
 .app-nav a {
-  color: #333333; /* Dark Gray */
+  color: #495E57; /* Green text */
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600; /* Semi-bold */
+  padding: 0.5rem 0; /* Add padding for larger click area */
+  position: relative; /* For potential underline effect */
 }
 
-.app-nav a:hover {
-  color: #495E57; /* Little Lemon Green */
+.app-nav a::after { /* Underline effect on hover/active */
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #F4CE14; /* Yellow underline */
+  transition: width 0.3s ease;
 }
+
+.app-nav a:hover::after {
+  width: 100%;
+}
+
+/* Consider adding active link styling if using NavLink later */
 
 .app-main {
   flex-grow: 1; /* Allow main content to take up available space */
 }
 
-.main-content {
+/* Remove old .main-content and .column styles if no longer used */
+/* .main-content { ... } */
+/* .column { ... } */
+
+/* --- Hero Section (CallToAction) --- */
+.hero-section {
+  background-color: #495E57; /* Green background */
+  color: #EDEFEE; /* Light text */
+  padding: 2rem 1rem;
   display: flex;
-  flex-direction: column; /* Default: Stack columns vertically */
-  gap: 1rem; /* Space between columns */
-  padding: 1rem; /* Padding around the content area */
-  max-width: 1200px; /* Optional: Limit max width */
-  margin: 0 auto; /* Center content area */
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
 }
 
-.column {
-  background-color: #ffffff; /* White background for columns */
-  padding: 1.5rem;
-  border: 1px solid #dddddd; /* Light border */
-  border-radius: 8px; /* Rounded corners */
-  flex: 1; /* Allow columns to grow equally */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+.hero-content {
+  flex: 1;
+  min-width: 280px; /* Prevent content from getting too squished */
 }
 
-.column h2 {
+/* Force Hero H1 color using !important */
+.hero-section .hero-content h1#cta-heading {
+  color: #F4CE14 !important; /* Ensure Hero H1 is Yellow */
+  font-size: 3.5rem; /* Slightly larger */
   margin-top: 0;
-  color: #EE9972; /* Little Lemon Orange */
+  margin-bottom: 0.2rem;
+}
+
+.hero-content h2 {
+  color: #EDEFEE; /* Light Gray */
+  font-size: 1.8rem;
+  font-weight: normal;
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-image {
+  flex: 1;
+  min-width: 280px;
+  text-align: center; /* Center image if it's smaller */
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+  max-height: 300px; /* Limit image height */
+  border-radius: 16px; /* More rounded */
+  object-fit: cover; /* Cover the area */
+}
+
+/* --- Specials Section --- */
+.specials {
+  padding: 3rem 1rem;
+}
+
+.specials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap; /* Wrap on small screens */
+  gap: 1rem;
+}
+
+.specials-header h2 {
+  margin: 0;
+}
+
+/* Ensure the primary button style applies correctly here */
+.specials-header .primary-button {
+  background-color: #F4CE14; /* Yellow */
+  color: #333333 !important; /* Dark Gray text, ensure override */
+}
+
+.specials-header .primary-button:hover {
+  background-color: #e0bb10;
+  color: #333333 !important;
+}
+
+.specials-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 2rem;
+}
+
+.special-card {
+  background-color: #EDEFEE; /* Light Gray background */
+  border-radius: 16px; /* Match hero image */
+  overflow: hidden; /* Keep image corners rounded */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-image {
+  width: 100%;
+  height: 180px; /* Fixed height for card images */
+  object-fit: cover;
+  border-radius: 0; /* Remove default image radius */
+}
+
+.card-content {
+  padding: 1rem;
+  flex-grow: 1; /* Allow content to fill space */
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.card-title-price h3 {
+  margin: 0;
+  color: #333333;
+}
+
+.price {
+  color: #EE9972; /* Orange */
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-description {
+  color: #495E57; /* Green */
+  flex-grow: 1; /* Push link to bottom */
+  margin-bottom: 1rem;
+}
+
+.card-link {
+  font-weight: bold;
+  color: #333333;
+  margin-top: auto; /* Push to bottom */
+}
+
+.card-link:hover {
+  color: #EE9972;
+}
+
+
+/* --- Testimonials Section --- */
+.testimonials {
+  background-color: #f8f9fa; /* Very light gray */
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.testimonials h2 {
+  margin-bottom: 2rem;
+}
+
+.testimonials-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.rating {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #F4CE14; /* Yellow for stars */
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.customer-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* Circular photo */
+  object-fit: cover;
+}
+
+.customer-name {
+  font-weight: bold;
+  margin: 0;
+}
+
+.review-text {
+  font-style: italic;
+  color: #6c757d; /* Medium gray */
+  margin: 0;
+}
+
+
+/* --- About Section (Chicago) --- */
+.about-section {
+  padding: 3rem 1rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-wrap: wrap; /* Wrap on smaller screens */
+  background-color: #ffffff; /* White background */
+}
+
+.about-content {
+  flex: 1;
+  min-width: 280px;
+}
+
+.about-content h2 {
+  margin-top: 0;
+}
+
+.about-content h3 {
+  margin-top: 0;
+  font-weight: normal;
+  color: #6c757d;
+}
+
+.about-images {
+  flex: 1;
+  min-width: 280px;
+  position: relative; /* For positioning images */
+  min-height: 250px; /* Ensure space for images */
+}
+
+.about-image {
+  position: absolute;
+  width: 60%; /* Adjust size */
+  max-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.about-image-1 {
+  top: 0;
+  left: 10%;
+  z-index: 1;
+}
+
+.about-image-2 {
+  top: 30%;
+  left: 40%;
+  z-index: 2;
+}
+
+/* --- Booking Form Specific Styles --- */
+/* (Keep existing form styles or enhance them) */
+form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 2rem auto; /* Center form on page */
+}
+
+form label {
+  font-weight: bold;
+  color: #495E57;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+form input[type="date"],
+form input[type="number"],
+form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-bottom: 0.5rem; /* Add space below inputs */
+}
+
+form input[type="submit"] {
+  /* Use button styles */
+  width: 100%;
+}
+
+form input[type="submit"]:disabled {
+  background-color: #adb5bd; /* Gray out when disabled */
+  cursor: not-allowed;
+}
+
+/* --- Confirmed Booking Page --- */
+.confirmed-booking {
+  background-color: #e9f7ef; /* Light green background */
+  border: 1px solid #a3e9a4;
+  border-radius: 8px;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.confirmed-booking h1 {
+  color: #155724; /* Darker green */
+}
+
+.confirmed-booking p {
+  color: #0c5460;
 }
 
 .app-footer {

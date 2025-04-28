@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'; // Import Link
 
 function Nav() {
   return (
-    <nav className="app-nav">
+    // Add role="navigation" for explicit landmark
+    <nav className="app-nav" role="navigation">
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/about">About</Link></li> {/* Placeholder path */}
